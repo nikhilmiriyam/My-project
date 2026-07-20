@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideShare | Ride History</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="history">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">Ride<span>Share</span></div>
+        <nav class="nav-links">
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/account.html">Account</a>
+          <a href="/signin.html">Sign Out</a>
+        </nav>
+      </header>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Ride History</h2>
+          <span class="eyebrow">Booked & upcoming</span>
+        </div>
+        <div class="history-layout">
+          <div class="panel">
+            <h3>Upcoming Rides</h3>
+            <div id="upcomingHistory" class="session-list"></div>
+          </div>
+          <div class="panel">
+            <h3>Booked History</h3>
+            <div id="bookedHistory" class="session-list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

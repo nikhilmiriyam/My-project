@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideShare | Fast & Safe Travel</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="landing">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">Ride<span>Share</span></div>
+        <nav class="nav-links">
+          <a href="#routes">Routes</a>
+          <a href="#join">Join</a>
+          <a href="/signin.html">Sign In</a>
+        </nav>
+      </header>
+
+      <section class="hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">Fast car and seat booking</div>
+          <h1>Book trusted rides in Andhra Pradesh in under a minute.</h1>
+          <p>RideShare gives passengers and riders a faster, calmer booking experience with saved details, live fare preview, and role-based access.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/signup.html">Create Account</a>
+            <a class="btn btn-secondary" href="/signin.html">Open Dashboard</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>24/7</strong><span>Booking support</span></div>
+            <div class="stat"><strong>4.9/5</strong><span>Comfort rating</span></div>
+            <div class="stat"><strong>₹150+</strong><span>Per ride savings</span></div>
+          </div>
+        </div>
+
+        <aside class="preview-card">
+          <h2>Built for Two Roles</h2>
+          <div class="preview-list">
+            <div class="preview-item"><span class="preview-label">Passengers</span><span class="preview-value">Book rides quickly</span></div>
+            <div class="preview-item"><span class="preview-label">Riders</span><span class="preview-value">Accept requests fast</span></div>
+            <div class="preview-item"><span class="preview-label">Saved data</span><span class="preview-value">No repeat entry</span></div>
+            <div class="preview-item"><span class="preview-label">Experience</span><span class="preview-value">Mobile ready</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section booking-section" id="book">
+        <div class="section-head">
+          <h2>Book a Ride</h2>
+          <span class="eyebrow">Dashboard-ready</span>
+        </div>
+        <div class="booking-layout">
+          <div class="panel">
+            <div class="route-picker">
+              <button class="route-option active" type="button" data-route="Vijayawada → Gannavaram" data-from="MG Road, Vijayawada 520001" data-to="Gannavaram Airport, Gannavaram 521102" data-price="180">
+                <strong>Vijayawada → Gannavaram</strong>
+                <span>Airport transfer • ₹180</span>
+              </button>
+              <button class="route-option" type="button" data-route="Visakhapatnam → Rushikonda" data-from="Dwaraka Nagar, Visakhapatnam 530016" data-to="Rushikonda Beach Road, Visakhapatnam 530045" data-price="220">
+                <strong>Visakhapatnam → Rushikonda</strong>
+                <span>Beach ride • ₹220</span>
+              </button>
+              <button class="route-option" type="button" data-route="Tirupati → Renigunta" data-from="Alipiri, Tirupati 517501" data-to="Renigunta Airport Road, Tirupati 517520" data-price="150">
+                <strong>Tirupati → Renigunta</strong>
+                <span>Temple city ride • ₹150</span>
+              </button>
+            </div>
+            <form id="bookingForm" class="booking-form">
+              <div class="booking-grid">
+                <label class="field">
+                  <span>From</span>
+                  <input id="fromLocation" name="fromLocation" placeholder="Enter source" />
+                </label>
+                <label class="field">
+                  <span>To</span>
+                  <input id="toLocation" name="toLocation" placeholder="Enter destination" />
+                </label>
+                <label class="field">
+                  <span>Travel type</span>
+                  <select id="travelType" name="travelType">
+                    <option>Shared Seat</option>
+                    <option>Whole Car</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Seats</span>
+                  <select id="seatCount" name="seatCount">
+                    <option value="1">1 Seat</option>
+                    <option value="2" selected>2 Seats</option>
+                    <option value="3">3 Seats</option>
+                    <option value="4">4 Seats</option>
+                  </select>
+                </label>
+                <label class="field" id="vehicleTypeField" style="display:none;">
+                  <span>Car Type</span>
+                  <select id="vehicleType" name="vehicleType">
+                    <option value="4">4 Seater Car</option>
+                    <option value="7">7 Seater Car</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Car Model</span>
+                  <select id="carModel" name="carModel">
+                    <option value="basic">Basic Hatchback</option>
+                    <option value="economy">Economy Sedan</option>
+                    <option value="sedan">Premium Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="luxury">Luxury Sedan</option>
+                    <option value="luxury-suv">Luxury SUV</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Travel date</span>
+                  <input id="travelDate" name="travelDate" type="date" />
+                </label>
+                <label class="field">
+                  <span>Pickup address</span>
+                  <input id="pickupAddress" name="pickupAddress" placeholder="Pickup address" />
+                </label>
+                <label class="field">
+                  <span>Notes</span>
+                  <textarea name="notes" placeholder="Any extra details?"></textarea>
+                </label>
+              </div>
+              <button class="btn btn-primary full-btn" type="submit">Confirm Booking</button>
+              <p id="formMessage" class="form-message">Your booking will appear in your dashboard after confirmation.</p>
+            </form>
+          </div>
+
+          <aside class="preview-card">
+            <h2>Booking Preview</h2>
+            <div class="preview-list">
+              <div class="preview-item"><span class="preview-label">Route</span><span class="preview-value" id="previewRoute"></span></div>
+              <div class="preview-item"><span class="preview-label">Pickup</span><span class="preview-value" id="previewPickup"></span></div>
+              <div class="preview-item"><span class="preview-label">Destination</span><span class="preview-value" id="previewDestination"></span></div>
+              <div class="preview-item"><span class="preview-label">Travel Type</span><span class="preview-value" id="previewType"></span></div>
+              <div class="preview-item"><span class="preview-label">Seats</span><span class="preview-value" id="previewSeats"></span></div>
+              <div class="preview-item"><span class="preview-label">Date</span><span class="preview-value" id="previewDate"></span></div>
+              <div class="preview-item"><span class="preview-label">Fare</span><span class="preview-value" id="previewFare"></span></div>
+            </div>
+            <p class="preview-note" id="previewNote">Shared seat booking is ready to confirm.</p>
+            <button class="btn btn-secondary full-btn" type="button" data-open-modal>Preview Details</button>
+          </aside>
+        </div>
+      </section>
+
+      <div id="bookingModal" class="modal" aria-hidden="true">
+        <div class="modal-dialog">
+          <button class="modal-close" id="closeModalBtn" type="button">×</button>
+          <h3>Ride Request Ready</h3>
+          <p id="modalSummary">Your ride request is ready to confirm.</p>
+        </div>
+      </div>
+
+      <section class="section" id="routes">
+        <div class="section-head">
+          <h2>Popular Routes</h2>
+          <span class="eyebrow">Trusted travel</span>
+        </div>
+        <div class="cards">
+          <article class="route-card">
+            <h3>Vijayawada → Gannavaram</h3>
+            <p>Airport transfer from MG Road to Gannavaram Airport with quick pickup.</p>
+            <div class="route-meta"><span>08:30 AM</span><span class="price">&#8377;180</span></div>
+          </article>
+          <article class="route-card">
+            <h3>Visakhapatnam → Rushikonda</h3>
+            <p>Coastal ride from Dwaraka Nagar to Rushikonda Beach Road with low-latency booking.</p>
+            <div class="route-meta"><span>09:15 AM</span><span class="price">&#8377;220</span></div>
+          </article>
+          <article class="route-card">
+            <h3>Tirupati → Renigunta</h3>
+            <p>Temple-city route from Alipiri to Renigunta Airport Road with a smooth booking flow.</p>
+            <div class="route-meta"><span>06:40 PM</span><span class="price">&#8377;150</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section two-col" id="join">
+        <div class="panel">
+          <h2>For Passengers</h2>
+          <p>Save your travel preferences once and book rides quickly with fewer touches every time.</p>
+          <div class="timeline">
+            <div class="timeline-item">Select route and travel type</div>
+            <div class="timeline-item">Choose shared seat or whole car</div>
+            <div class="timeline-item">Confirm with one tap</div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>For Riders</h2>
+          <p>See incoming requests, accept rides quickly, and manage your day without clutter.</p>
+          <div class="timeline">
+            <div class="timeline-item">Receive passenger requests</div>
+            <div class="timeline-item">Manage routes and timing</div>
+            <div class="timeline-item">Keep booking flow clear and fast</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

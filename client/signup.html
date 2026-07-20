@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideShare | Sign Up</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="auth">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-head">
+          <div class="brand">Ride<span>Share</span></div>
+          <p>Create your account and start booking faster.</p>
+        </div>
+
+        <div class="role-switch">
+          <button class="role-btn active" type="button" data-role="Passenger">Passenger</button>
+          <button class="role-btn" type="button" data-role="Rider">Rider</button>
+        </div>
+
+        <form class="auth-form" data-mode="signup">
+          <div class="signup-grid">
+            <label class="field">
+              <span>Name</span>
+              <input name="name" type="text" placeholder="Your full name" required />
+            </label>
+            <label class="field">
+              <span>User ID</span>
+              <input name="userId" type="text" placeholder="Unique user ID" required />
+            </label>
+            <label class="field">
+              <span>Email</span>
+              <input name="email" type="email" placeholder="you@example.com" required />
+            </label>
+            <label class="field">
+              <span>Phone</span>
+              <input name="phone" type="tel" inputmode="numeric" pattern="\d{10}" maxlength="10" placeholder="10-digit phone" required />
+            </label>
+            <label class="field">
+              <span>Gender</span>
+              <select name="gender" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <input name="password" type="password" placeholder="Create password" required />
+            </label>
+            <div id="riderFields" class="rider-fields" style="display: none; grid-column: 1 / -1; gap: 12px;">
+              <div class="signup-grid inner-grid">
+                <label class="field">
+                  <span>Government ID</span>
+                  <input name="govId" type="text" placeholder="Aadhaar / PAN / Passport" />
+                </label>
+                <label class="field">
+                  <span>Driving License</span>
+                  <input name="license" type="text" placeholder="DL number" />
+                </label>
+                <label class="field">
+                  <span>Vehicle Number</span>
+                  <input name="vehicleNumber" type="text" placeholder="AP 05 AB 1234" />
+                </label>
+                <label class="field">
+                  <span>Vehicle Company</span>
+                  <input name="company" type="text" placeholder="Toyota / Hyundai" />
+                </label>
+                <label class="field">
+                  <span>Vehicle Model</span>
+                  <input name="model" type="text" placeholder="Swift / Corolla" />
+                </label>
+                <label class="field">
+                  <span>Car Type</span>
+                  <select name="carType">
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Mini">Mini</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Face ID Status</span>
+                  <select name="faceId">
+                    <option value="Verified">Verified</option>
+                    <option value="Pending">Pending</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary full-btn" type="submit">Create Account</button>
+          <div class="auth-message"></div>
+        </form>
+
+        <p class="auth-link">Already have an account? <a href="/signin.html">Sign in</a></p>
+      </div>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideShare | Account</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="account">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand">Ride<span>Share</span></div>
+        <nav class="nav-links">
+          <a href="/dashboard.html">Dashboard</a>
+          <a href="/history.html">History</a>
+          <a href="/signin.html">Sign Out</a>
+        </nav>
+      </header>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Account Details</h2>
+          <span class="eyebrow">Verified profile</span>
+        </div>
+        <div class="account-layout">
+          <div class="panel">
+            <form id="profileForm" class="profile-form">
+              <label class="field">
+                <span>Full Name</span>
+                <input id="profileName" name="name" type="text" required />
+              </label>
+              <label class="field">
+                <span>User ID</span>
+                <input id="profileUserId" name="userId" type="text" required />
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input id="profileEmail" name="email" type="email" required />
+              </label>
+              <label class="field">
+                <span>Phone</span>
+                <input id="profilePhone" name="phone" type="tel" inputmode="numeric" pattern="\d{10}" maxlength="10" required />
+              </label>
+              <label class="field">
+                <span>Gender</span>
+                <select id="profileGender" name="gender" required>
+                  <option value="">Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Role</span>
+                <select id="profileRole" name="role">
+                  <option value="Passenger">Passenger</option>
+                  <option value="Rider">Rider</option>
+                </select>
+              </label>
+              <button class="btn btn-primary full-btn" type="submit">Save Details</button>
+              <p id="profileMessage" class="form-message">Keep your account information genuine and up to date.</p>
+            </form>
+          </div>
+
+          <aside class="preview-card">
+            <h2>Why this matters</h2>
+            <div class="preview-list">
+              <div class="preview-item"><span class="preview-label">Secure rides</span><span class="preview-value">Verified profile</span></div>
+              <div class="preview-item"><span class="preview-label">Faster booking</span><span class="preview-value">Saved details</span></div>
+              <div class="preview-item"><span class="preview-label">Better matching</span><span class="preview-value">Reliable contact</span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>

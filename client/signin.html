@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RideShare | Sign In</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-page="auth">
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-head">
+          <div class="brand">Ride<span>Share</span></div>
+          <p>Welcome back. Choose your role and continue.</p>
+        </div>
+
+        <div class="role-switch">
+          <button class="role-btn active" type="button" data-role="Passenger">Passenger</button>
+          <button class="role-btn" type="button" data-role="Rider">Rider</button>
+        </div>
+
+        <form class="auth-form" data-mode="signin">
+          <label class="field">
+            <span>Email</span>
+            <input name="email" type="email" placeholder="you@example.com" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input name="password" type="password" placeholder="Enter password" required />
+          </label>
+          <button class="btn btn-primary full-btn" type="submit">Sign In</button>
+          <div class="auth-message"></div>
+        </form>
+
+        <p class="auth-link">New here? <a href="/signup.html">Create an account</a></p>
+      </div>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
