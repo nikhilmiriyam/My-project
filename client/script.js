@@ -218,6 +218,18 @@ const carRateMap = {
   luxury: 1.8,
   'luxury-suv': 2.1
 };
+const carModelCatalog = {
+  4: [
+    { value: 'basic', label: 'Basic Hatchback' },
+    { value: 'economy', label: 'Economy Sedan' },
+    { value: 'sedan', label: 'Premium Sedan' }
+  ],
+  7: [
+    { value: 'suv', label: 'SUV' },
+    { value: 'luxury', label: 'Luxury Sedan' },
+    { value: 'luxury-suv', label: 'Luxury SUV' }
+  ]
+};
 const googleApiKey = window.RIDESHARE_GOOGLE_API_KEY || '';
 let routeSearchTimer = null;
 
@@ -235,6 +247,30 @@ function getCarLabel() {
     luxury: 'Luxury Sedan',
     'luxury-suv': 'Luxury SUV'
   }[value] || 'Basic Hatchback';
+}
+
+function getCarModelsForSelection() {
+  if (travelTypeSelect?.value === 'Whole Car') {
+    const vehicleSeats = Number(vehicleTypeSelect?.value || 4);
+    return carModelCatalog[vehicleSeats === 7 ? '7' : '4'] || carModelCatalog[4];
+  }
+
+  return [
+    ...carModelCatalog[4],
+    ...carModelCatalog[7]
+  ];
+}
+
+function updateCarModelOptions() {
+  if (!carModelSelect) return;
+
+  const options = getCarModelsForSelection();
+  const currentValue = carModelSelect.value;
+  carModelSelect.innerHTML = options.map((option) => `<option value="${option.value}">${option.label}</option>`).join('');
+
+  const nextValue = options.some((option) => option.value === currentValue) ? currentValue : options[0]?.value || 'basic';
+  carModelSelect.value = nextValue;
+  updatePreview();
 }
 
 function formatDate(value) {
@@ -487,6 +523,8 @@ function updateRouteFromSearch() {
   element?.addEventListener('input', () => {
     if (element === fromLocationInput || element === toLocationInput) {
       updateRouteFromSearch();
+    } else if (element === vehicleTypeSelect || element === travelTypeSelect) {
+      updateCarModelOptions();
     } else {
       updatePreview();
     }
@@ -494,6 +532,8 @@ function updateRouteFromSearch() {
   element?.addEventListener('change', () => {
     if (element === fromLocationInput || element === toLocationInput) {
       updateRouteFromSearch();
+    } else if (element === vehicleTypeSelect || element === travelTypeSelect) {
+      updateCarModelOptions();
     } else {
       updatePreview();
     }
@@ -568,6 +608,8 @@ form?.addEventListener('submit', (event) => {
   if (activeUser) {
     saveBookingSession({
       route: activeRoute.route || selectedRoute,
+      from: fromLocationInput?.value?.trim() || activeRoute.from,
+      to: toLocationInput?.value?.trim() || activeRoute.to,
       pickup: pickupAddressInput?.value?.trim() || activeRoute.from,
       destination: toLocationInput?.value?.trim() || activeRoute.to,
       travelType,
@@ -585,8 +627,57 @@ form?.addEventListener('submit', (event) => {
 
   openModal();
   form.reset();
+  updateCarModelOptions();
   updatePreview();
 });
+
+function getAvailableRideSuggestions() {
+  const sessions = getBookingSessions();
+  const riders = sessions.filter((session) => (session.role || '').toLowerCase() === 'rider' || session.status === 'Available');
+
+  if (riders.length) {
+    return riders.slice(0, 4).map((session) => ({
+      ...session,
+      route: session.route || `${session.from || 'Pickup'} → ${session.to || 'Destination'}`,
+      pickup: session.pickup || session.from || 'Pickup pending',
+      destination: session.destination || session.to || 'Drop pending',
+      fare: session.fare || 'Fare pending',
+      seats: session.seats || 4,
+      userName: session.userName || 'Rider profile',
+      role: session.role || 'Rider',
+      phone: session.phone || 'Phone pending'
+    }));
+  }
+
+  return [
+    {
+      id: 'sample-1',
+      route: 'Vijayawada → Gannavaram',
+      pickup: 'MG Road, Vijayawada',
+      destination: 'Gannavaram Airport, Gannavaram',
+      fare: '₹180',
+      seats: 4,
+      userName: 'Ravi Kumar',
+      role: 'Rider',
+      phone: '9876543210',
+      status: 'Available',
+      carModel: 'Economy Sedan'
+    },
+    {
+      id: 'sample-2',
+      route: 'Visakhapatnam → Rushikonda',
+      pickup: 'Dwaraka Nagar, Visakhapatnam',
+      destination: 'Rushikonda Beach Road, Visakhapatnam',
+      fare: '₹220',
+      seats: 7,
+      userName: 'Anita Rao',
+      role: 'Rider',
+      phone: '9123456780',
+      status: 'Available',
+      carModel: 'Luxury SUV'
+    }
+  ];
+}
 
 function renderDashboard() {
   if (document.body?.dataset.page !== 'dashboard') return;
@@ -606,11 +697,13 @@ function renderDashboard() {
   const nextTrip = document.getElementById('dashboardNextTrip');
   const status = document.getElementById('dashboardStatus');
   const sessionsBox = document.getElementById('dashboardSessions');
+  const availableRidesBox = document.getElementById('availableRidesList');
 
   if (!activeUser) {
     if (greeting) greeting.textContent = 'Hello there';
     if (summary) summary.textContent = 'Sign in to access your personalized lobby.';
     if (sessionsBox) sessionsBox.innerHTML = '<p class="preview-note">No saved sessions yet.</p>';
+    if (availableRidesBox) availableRidesBox.innerHTML = '<p class="preview-note">No available rides yet.</p>';
     return;
   }
 
@@ -634,20 +727,44 @@ function renderDashboard() {
     sessionsBox.innerHTML = sessions.map((session) => `
       <div class="summary-card">
         <div class="summary-row">
-          <span>${session.route || 'Ride request'}</span>
+          <span>${session.route || `${session.from || 'Pickup'} → ${session.to || 'Destination'}`}</span>
           <strong>${session.status || 'Booked'}</strong>
         </div>
         <div class="summary-row">
-          <span>${session.pickup || 'Pickup pending'}</span>
+          <span>${session.pickup || session.from || 'Pickup pending'}</span>
           <strong>${session.date ? formatDate(session.date) : 'Flexible'}</strong>
         </div>
         <div class="summary-row">
-          <span>${session.travelType || 'Shared Seat'}</span>
+          <span>${session.destination || session.to || 'Drop pending'}</span>
           <strong>${session.fare || 'Fare pending'}</strong>
         </div>
         <div class="summary-row">
-          <span>${session.seats || 2} seat${Number(session.seats || 2) > 1 ? 's' : ''}</span>
+          <span>${session.travelType || 'Shared Seat'} • ${session.seats || 2} seat${Number(session.seats || 2) > 1 ? 's' : ''}</span>
           <strong>${session.userName || 'User'}</strong>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (availableRidesBox) {
+    const suggestions = getAvailableRideSuggestions();
+    availableRidesBox.innerHTML = suggestions.map((ride) => `
+      <div class="summary-card">
+        <div class="summary-row">
+          <span>${ride.userName || 'Rider profile'}</span>
+          <strong>${ride.role || 'Rider'}</strong>
+        </div>
+        <div class="summary-row">
+          <span>${ride.route || `${ride.from || 'Pickup'} → ${ride.to || 'Destination'}`}</span>
+          <strong>${ride.fare || 'Fare pending'}</strong>
+        </div>
+        <div class="summary-row">
+          <span>${ride.pickup || ride.from || 'Pickup pending'}</span>
+          <strong>${ride.seats || 4} seats</strong>
+        </div>
+        <div class="summary-row">
+          <span>${ride.destination || ride.to || 'Drop pending'}</span>
+          <strong>${ride.phone || 'Phone pending'}</strong>
         </div>
       </div>
     `).join('');
@@ -773,6 +890,7 @@ authForms.forEach((authForm) => {
 document.querySelector('.logout-btn')?.addEventListener('click', handleLogout);
 profileForm?.addEventListener('submit', handleProfileSave);
 loadGoogleMapsScript();
+updateCarModelOptions();
 renderDashboard();
 renderAccountPage();
 renderHistoryPage();
