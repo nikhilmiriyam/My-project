@@ -258,6 +258,7 @@ function getDefaultBookedSeats(car) {
   return Math.max(1, Math.min(seats, 2));
 }
 
+// Normalize rider cars for display based on current ride state.
 function normalizeRiderCars(cars, rideStatus) {
   return cars.map((car) => {
     const baseBooked = Number(car.baseBooked ?? car.booked ?? 0);
@@ -289,6 +290,35 @@ function getRouteDistance(route) {
   return distanceMap[normalized] || 12;
 }
 
+// Render the rider highlights section with curated route insights.
+function renderRiderHighlights(rideStatus) {
+  return `
+    <div class="route-status-card">
+      <div class="route-status-head">
+        <span class="eyebrow">Most-run routes</span>
+        <span class="route-status-pill">${rideStatus === 'on' ? 'Live now' : 'Offline'}</span>
+      </div>
+      <ul class="route-status-list">
+        <li><strong>Vijayawada → Gannavaram</strong><span>24 trips • airport corridor</span></li>
+        <li><strong>Visakhapatnam → Rushikonda</strong><span>18 trips • beach express</span></li>
+        <li><strong>Tirupati → Renigunta</strong><span>12 trips • temple shuttle</span></li>
+      </ul>
+    </div>
+    <div class="route-status-card">
+      <div class="route-status-head">
+        <span class="eyebrow">Popular route themes</span>
+        <span class="route-status-pill">Driver insights</span>
+      </div>
+      <ul class="route-status-list">
+        <li><strong>Airport transfer</strong><span>Consistent demand across peak hours</span></li>
+        <li><strong>Beach route</strong><span>High weekend pick-up volume</span></li>
+        <li><strong>Daily commute</strong><span>Steady rides for repeat passengers</span></li>
+      </ul>
+    </div>
+  `;
+}
+
+// Sync daily earnings and distance totals into localStorage.
 function syncDailyEarnings(cars, rideStatus) {
   const today = new Date().toISOString().slice(0, 10);
   const amount = cars.reduce((sum, car) => sum + Number(car.booked || 0) * Number(car.pricePerSeat || 0), 0);
@@ -859,30 +889,7 @@ function renderDashboard() {
       if (dailyDistanceValue) dailyDistanceValue.textContent = `${earningsSummary.distance} km`;
       if (riderCarCount) riderCarCount.textContent = rideStatus === 'on' ? `${riderCars.filter((car) => car.booked > 0).length} active cars` : '0 online cars';
       if (riderRouteHighlights) {
-        riderRouteHighlights.innerHTML = `
-          <div class="route-status-card">
-            <div class="route-status-head">
-              <span class="eyebrow">Most runned routes</span>
-              <span class="route-status-pill">${rideStatus === 'on' ? 'Live now' : 'Offline'}</span>
-            </div>
-            <ul class="route-status-list">
-              <li><strong>Vijayawada → Gannavaram</strong><span>24 trips • airport rush</span></li>
-              <li><strong>Visakhapatnam → Rushikonda</strong><span>18 trips • weekend favorite</span></li>
-              <li><strong>Tirupati → Renigunta</strong><span>12 trips • temple commute</span></li>
-            </ul>
-          </div>
-          <div class="route-status-card">
-            <div class="route-status-head">
-              <span class="eyebrow">Famous routes</span>
-              <span class="route-status-pill">Popular</span>
-            </div>
-            <ul class="route-status-list">
-              <li><strong>Airport transfer</strong><span>High demand • quick drop</span></li>
-              <li><strong>Beach route</strong><span>Weekend surge • scenic ride</span></li>
-              <li><strong>Daily commute</strong><span>Repeat riders • regular earnings</span></li>
-            </ul>
-          </div>
-        `;
+        riderRouteHighlights.innerHTML = renderRiderHighlights(rideStatus);
       }
       sessionsBox.innerHTML = riderCars.map((car) => `
         <div class="summary-card">
