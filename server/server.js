@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const clientDir = path.join(__dirname, '..', 'client');
 
 app.use(cors());
@@ -38,6 +38,15 @@ app.get('/signup.html', (req, res) => {
   res.sendFile(path.join(clientDir, 'signup.html'));
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Please stop the process using that port or set PORT to a different value.`);
+    process.exit(1);
+  }
+  console.error('Server error:', err);
+  process.exit(1);
 });
