@@ -42,111 +42,130 @@
       <section class="dashboard-grid second-row">
         <div class="panel dashboard-card">
           <div class="section-head">
-            <h2>Booking Sessions</h2>
-            <span class="eyebrow">All rides</span>
+            <h2 id="dashboardSectionTitle">Cars List</h2>
+            <span class="eyebrow" id="dashboardSectionSubtitle">Rider occupancy</span>
           </div>
           <div id="dashboardSessions" class="session-list"></div>
-          <div class="section-head" style="margin-top: 1rem;">
-            <h3>Available Rides</h3>
-            <span class="eyebrow">Previous rider routes</span>
-          </div>
-          <div id="availableRidesList" class="session-list"></div>
         </div>
       </section>
 
       <section class="section booking-section">
         <div class="section-head">
-          <h2>Quick Book From Dashboard</h2>
-          <span class="eyebrow">Instant confirm</span>
+          <h2 id="quickBookHeading">Quick Book From Dashboard</h2>
+          <span class="eyebrow" id="quickBookSubheading">Instant confirm</span>
         </div>
-        <div class="booking-layout">
-          <div class="panel">
-            <div class="route-picker">
-              <button class="route-option active" type="button" data-route="Vijayawada → Gannavaram" data-from="Vijayawada" data-to="Gannavaram" data-price="180">
-                <strong>Vijayawada → Gannavaram</strong>
-                <span>Airport transfer • ₹180</span>
-              </button>
-              <button class="route-option" type="button" data-route="Visakhapatnam → Rushikonda" data-from="Visakhapatnam" data-to="Rushikonda" data-price="220">
-                <strong>Visakhapatnam → Rushikonda</strong>
-                <span>Beach ride • ₹220</span>
-              </button>
-            </div>
-            <form id="bookingForm" class="booking-form">
-              <div class="booking-grid">
-                <label class="field">
-                  <span>From</span>
-                  <input id="fromLocation" name="fromLocation" placeholder="Enter source" />
-                </label>
-                <label class="field">
-                  <span>To</span>
-                  <input id="toLocation" name="toLocation" placeholder="Enter destination" />
-                </label>
-                <label class="field">
-                  <span>Travel type</span>
-                  <select id="travelType" name="travelType">
-                    <option>Shared Seat</option>
-                    <option>Whole Car</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Seats</span>
-                  <select id="seatCount" name="seatCount">
-                    <option value="1">1 Seat</option>
-                    <option value="2" selected>2 Seats</option>
-                    <option value="3">3 Seats</option>
-                    <option value="4">4 Seats</option>
-                  </select>
-                </label>
-                <label class="field" id="vehicleTypeField" style="display:none;">
-                  <span>Car Type</span>
-                  <select id="vehicleType" name="vehicleType">
-                    <option value="4">4 Seater Car</option>
-                    <option value="7">7 Seater Car</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Car Model</span>
-                  <select id="carModel" name="carModel">
-                    <option value="basic">Basic Hatchback</option>
-                    <option value="economy">Economy Sedan</option>
-                    <option value="sedan">Premium Sedan</option>
-                    <option value="suv">SUV</option>
-                    <option value="luxury">Luxury Sedan</option>
-                    <option value="luxury-suv">Luxury SUV</option>
-                  </select>
-                </label>
-                <label class="field">
-                  <span>Travel date</span>
-                  <input id="travelDate" name="travelDate" type="date" />
-                </label>
-                <label class="field">
-                  <span>Pickup address</span>
-                  <input id="pickupAddress" name="pickupAddress" placeholder="Pickup address" />
-                </label>
-                <label class="field">
-                  <span>Notes</span>
-                  <textarea name="notes" placeholder="Add notes"></textarea>
-                </label>
+        <div id="quickBookPassengerView">
+          <div class="booking-layout">
+            <div class="panel">
+              <div class="route-picker">
+                <button class="route-option active" type="button" data-route="Vijayawada → Gannavaram" data-from="Vijayawada" data-to="Gannavaram" data-price="180">
+                  <strong>Vijayawada → Gannavaram</strong>
+                  <span>Airport transfer • ₹180</span>
+                </button>
+                <button class="route-option" type="button" data-route="Visakhapatnam → Rushikonda" data-from="Visakhapatnam" data-to="Rushikonda" data-price="220">
+                  <strong>Visakhapatnam → Rushikonda</strong>
+                  <span>Beach ride • ₹220</span>
+                </button>
               </div>
-              <button class="btn btn-primary full-btn" type="submit">Confirm Booking</button>
-              <p id="formMessage" class="form-message">Your ride request will be saved to your dashboard.</p>
-            </form>
-          </div>
-
-          <aside class="preview-card">
-            <h2>Booking Preview</h2>
-            <div class="preview-list">
-              <div class="preview-item"><span class="preview-label">Route</span><span class="preview-value" id="previewRoute"></span></div>
-              <div class="preview-item"><span class="preview-label">Pickup</span><span class="preview-value" id="previewPickup"></span></div>
-              <div class="preview-item"><span class="preview-label">Destination</span><span class="preview-value" id="previewDestination"></span></div>
-              <div class="preview-item"><span class="preview-label">Travel Type</span><span class="preview-value" id="previewType"></span></div>
-              <div class="preview-item"><span class="preview-label">Seats</span><span class="preview-value" id="previewSeats"></span></div>
-              <div class="preview-item"><span class="preview-label">Date</span><span class="preview-value" id="previewDate"></span></div>
-              <div class="preview-item"><span class="preview-label">Fare</span><span class="preview-value" id="previewFare"></span></div>
+              <form id="bookingForm" class="booking-form">
+                <div class="booking-grid">
+                  <label class="field">
+                    <span>From</span>
+                    <input id="fromLocation" name="fromLocation" placeholder="Enter source" />
+                  </label>
+                  <label class="field">
+                    <span>To</span>
+                    <input id="toLocation" name="toLocation" placeholder="Enter destination" />
+                  </label>
+                  <label class="field">
+                    <span>Travel type</span>
+                    <select id="travelType" name="travelType">
+                      <option>Shared Seat</option>
+                      <option>Whole Car</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Seats</span>
+                    <select id="seatCount" name="seatCount">
+                      <option value="1">1 Seat</option>
+                      <option value="2" selected>2 Seats</option>
+                      <option value="3">3 Seats</option>
+                      <option value="4">4 Seats</option>
+                    </select>
+                  </label>
+                  <label class="field" id="vehicleTypeField" style="display:none;">
+                    <span>Car Type</span>
+                    <select id="vehicleType" name="vehicleType">
+                      <option value="4">4 Seater Car</option>
+                      <option value="7">7 Seater Car</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Car Model</span>
+                    <select id="carModel" name="carModel">
+                      <option value="basic">Basic Hatchback</option>
+                      <option value="economy">Economy Sedan</option>
+                      <option value="sedan">Premium Sedan</option>
+                      <option value="suv">SUV</option>
+                      <option value="luxury">Luxury Sedan</option>
+                      <option value="luxury-suv">Luxury SUV</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Travel date</span>
+                    <input id="travelDate" name="travelDate" type="date" />
+                  </label>
+                  <label class="field">
+                    <span>Pickup address</span>
+                    <input id="pickupAddress" name="pickupAddress" placeholder="Pickup address" />
+                  </label>
+                  <label class="field">
+                    <span>Notes</span>
+                    <textarea name="notes" placeholder="Add notes"></textarea>
+                  </label>
+                </div>
+                <button class="btn btn-primary full-btn" type="submit">Confirm Booking</button>
+                <p id="formMessage" class="form-message">Your ride request will be saved to your dashboard.</p>
+              </form>
             </div>
-            <p class="preview-note" id="previewNote">Shared seat booking is ready to confirm.</p>
-            <button class="btn btn-secondary full-btn" type="button" data-open-modal>Preview Details</button>
-          </aside>
+
+            <aside class="preview-card">
+              <h2>Booking Preview</h2>
+              <div class="preview-list">
+                <div class="preview-item"><span class="preview-label">Route</span><span class="preview-value" id="previewRoute"></span></div>
+                <div class="preview-item"><span class="preview-label">Pickup</span><span class="preview-value" id="previewPickup"></span></div>
+                <div class="preview-item"><span class="preview-label">Destination</span><span class="preview-value" id="previewDestination"></span></div>
+                <div class="preview-item"><span class="preview-label">Travel Type</span><span class="preview-value" id="previewType"></span></div>
+                <div class="preview-item"><span class="preview-label">Seats</span><span class="preview-value" id="previewSeats"></span></div>
+                <div class="preview-item"><span class="preview-label">Date</span><span class="preview-value" id="previewDate"></span></div>
+                <div class="preview-item"><span class="preview-label">Fare</span><span class="preview-value" id="previewFare"></span></div>
+              </div>
+              <p class="preview-note" id="previewNote">Shared seat booking is ready to confirm.</p>
+              <button class="btn btn-secondary full-btn" type="button" data-open-modal>Preview Details</button>
+            </aside>
+          </div>
+        </div>
+        <div id="quickBookRiderView" style="display:none;">
+          <div class="booking-layout">
+            <div class="panel">
+              <div class="section-head" style="margin-bottom: 0.75rem;">
+                <h3>Ride Status</h3>
+                <button class="btn btn-secondary" type="button" id="riderToggleButton">Turn Off</button>
+              </div>
+              <div id="riderRouteHighlights" class="ride-status-grid"></div>
+              <div id="riderActiveBoard" class="session-list"></div>
+            </div>
+            <aside class="preview-card">
+              <h2>Daily Earnings</h2>
+              <div class="preview-list">
+                <div class="preview-item"><span class="preview-label">Today</span><span class="preview-value" id="dailyEarningsValue">₹0</span></div>
+                <div class="preview-item"><span class="preview-label">Distance</span><span class="preview-value" id="dailyDistanceValue">0 km</span></div>
+                <div class="preview-item"><span class="preview-label">Reset</span><span class="preview-value">Midnight</span></div>
+                <div class="preview-item"><span class="preview-label">Cars</span><span class="preview-value" id="riderCarCount">0 active cars</span></div>
+              </div>
+              <p class="preview-note">Rider activity updates automatically for the current day.</p>
+            </aside>
+          </div>
         </div>
       </section>
 
