@@ -22,7 +22,7 @@ RideShare is a professional full-stack ride-sharing application prototype develo
 2. Start the application locally:
    - npm run dev
 3. Open the application in your browser:
-   - http://localhost:5000
+   - https://rideshare.onrender.com
 
 ## Environment Configuration
 Set the following environment variables for deployment or hosting:
