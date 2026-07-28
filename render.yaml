@@ -3,8 +3,8 @@ services:
     name: rideshare
     env: node
     plan: free
-    buildCommand: npm run install:all
-    startCommand: npm start
+    buildCommand: yarn install && yarn --cwd server install && yarn --cwd client install
+    startCommand: yarn start
     envVars:
       - key: NODE_ENV
         value: production
