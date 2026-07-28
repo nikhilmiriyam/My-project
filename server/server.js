@@ -9,6 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
+const APP_NAME = process.env.APP_NAME || 'RideShare';
 const clientDir = path.join(__dirname, '..', 'client');
 
 app.use(cors());
@@ -40,7 +41,7 @@ app.get('/signup.html', (req, res) => {
 });
 
 const server = app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+  console.log(`${APP_NAME} server running on http://${HOST}:${PORT}`);
 });
 
 server.on('error', (err) => {

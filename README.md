@@ -19,3 +19,8 @@ RideShare is a car and seat booking system built with a simple MERN-style stack 
 ## Notes
 - The backend runs on port 5000.
 - The Vite client runs on port 3000 when started separately.
+- For deployment, set the following environment variables on Render or your hosting platform:
+  - PORT
+  - HOST
+  - APP_NAME
+  - MONGO_URI
