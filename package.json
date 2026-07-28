@@ -3,7 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "RideShare car and seat booking system",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
+    "start": "npm --prefix server start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "npm --prefix server run dev",
     "client": "npm --prefix client run dev",
