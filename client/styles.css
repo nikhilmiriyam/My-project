@@ -50,6 +50,22 @@ img {
   box-shadow: var(--shadow);
 }
 
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.16);
+}
+
 .brand {
   font-size: 1.25rem;
   font-weight: 800;
@@ -427,15 +443,24 @@ textarea {
   margin-bottom: 18px;
 }
 
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
 .logo-mark {
   width: 72px;
   height: 72px;
-  margin: 0 auto 4px;
+  margin: 0;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.28);
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  padding: 6px;
+  padding: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
 }
 
 .logo-mark img {
@@ -446,14 +471,15 @@ textarea {
 }
 
 .logo-mark-inline {
-  width: 54px;
-  height: 54px;
-  margin: 0 10px 0 0;
+  width: 64px;
+  height: 64px;
+  margin: 0 12px 0 0;
 }
 
 .dashboard-brand-row {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .auth-head p {
@@ -562,6 +588,27 @@ textarea {
   margin: 0 auto;
   padding: 24px;
 }
+
+/* Dashboard page background logo */
+body[data-page="dashboard"] {
+  position: relative;
+  overflow: visible;
+}
+
+body[data-page="dashboard"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/logo_custom.png');
+  background-repeat: no-repeat;
+  background-position: center 8%;
+  background-size: 48%;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dashboard-shell { position: relative; z-index: 1; }
 
 .dashboard-topbar {
   display: flex;
