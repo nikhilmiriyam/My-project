@@ -78,6 +78,7 @@ function getAllUsers() {
 function validateUser(user) {
   const errors = [];
   const normalizedUserId = normalizeUserId(user.userId || user.name);
+  const isRider = (user.role || 'Passenger').toLowerCase() === 'rider';
 
   if (!user.name || user.name.trim().length < 2) {
     errors.push('Name must be at least 2 characters.');
@@ -97,6 +98,33 @@ function validateUser(user) {
 
   if (!user.gender) {
     errors.push('Please select a gender.');
+  }
+
+  if (isRider) {
+    if (!user.govId) {
+      errors.push('Riders must provide a government ID.');
+    }
+    if (!user.license) {
+      errors.push('Riders must provide a driving license.');
+    }
+    if (!user.vehicleNumber) {
+      errors.push('Riders must provide a vehicle number.');
+    }
+    if (!user.company) {
+      errors.push('Riders must provide a vehicle company.');
+    }
+    if (!user.model) {
+      errors.push('Riders must provide a vehicle model.');
+    }
+    if (!user.carType) {
+      errors.push('Riders must provide a car type.');
+    }
+    if (!user.faceId) {
+      errors.push('Riders must provide a face ID status.');
+    }
+    if (!user.officialContact) {
+      errors.push('Riders must provide an official contact.');
+    }
   }
 
   const users = getAllUsers();
@@ -1027,6 +1055,14 @@ authForms.forEach((authForm) => {
     const gender = formData.get('gender')?.toString().trim() || '';
     const phone = formData.get('phone')?.toString().trim() || '';
     const userId = formData.get('userId')?.toString().trim() || '';
+    const govId = formData.get('govId')?.toString().trim() || '';
+    const license = formData.get('license')?.toString().trim() || '';
+    const vehicleNumber = formData.get('vehicleNumber')?.toString().trim() || '';
+    const company = formData.get('company')?.toString().trim() || '';
+    const model = formData.get('model')?.toString().trim() || '';
+    const carType = formData.get('carType')?.toString().trim() || '';
+    const faceId = formData.get('faceId')?.toString().trim() || '';
+    const officialContact = formData.get('officialContact')?.toString().trim() || '';
 
     const isSignup = authForm.dataset.mode === 'signup';
 
@@ -1036,8 +1072,13 @@ authForms.forEach((authForm) => {
         return;
       }
 
+      if (role === 'Rider' && (!govId || !license || !vehicleNumber || !company || !model || !carType || !faceId || !officialContact)) {
+        setAuthMessage('Rider accounts need government ID, driving license, vehicle details, and official contact.', true);
+        return;
+      }
+
       try {
-        const user = saveUser({ name, email, role, password, gender, phone, userId });
+        const user = saveUser({ name, email, role, password, gender, phone, userId, govId, license, vehicleNumber, company, model, carType, faceId, officialContact });
         saveActiveUser(user);
         setAuthMessage(`Welcome ${name}! Your account is ready.`);
         window.location.href = DASHBOARD_PAGE;

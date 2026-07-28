@@ -432,6 +432,11 @@ textarea {
   color: var(--muted);
 }
 
+.auth-subtitle {
+  font-weight: 600;
+  color: var(--text);
+}
+
 .role-switch {
   display: flex;
   gap: 10px;

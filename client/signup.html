@@ -11,13 +11,15 @@
       <div class="auth-card">
         <div class="auth-head">
           <div class="brand">Ride<span>Share</span></div>
-          <p>Create your account and start booking faster.</p>
+          <p class="auth-subtitle">Create your account and choose the role that fits you best.</p>
         </div>
 
         <div class="role-switch">
           <button class="role-btn active" type="button" data-role="Passenger">Passenger</button>
           <button class="role-btn" type="button" data-role="Rider">Rider</button>
         </div>
+
+        <p class="auth-subtitle">Riders must add government ID, driving license, vehicle details, and official contact.</p>
 
         <form class="auth-form" data-mode="signup">
           <div class="signup-grid">
@@ -54,27 +56,28 @@
               <div class="signup-grid inner-grid">
                 <label class="field">
                   <span>Government ID</span>
-                  <input name="govId" type="text" placeholder="Aadhaar / PAN / Passport" />
+                  <input name="govId" type="text" placeholder="Aadhaar / PAN / Passport" required />
                 </label>
                 <label class="field">
                   <span>Driving License</span>
-                  <input name="license" type="text" placeholder="DL number" />
+                  <input name="license" type="text" placeholder="DL number" required />
                 </label>
                 <label class="field">
                   <span>Vehicle Number</span>
-                  <input name="vehicleNumber" type="text" placeholder="AP 05 AB 1234" />
+                  <input name="vehicleNumber" type="text" placeholder="AP 05 AB 1234" required />
                 </label>
                 <label class="field">
                   <span>Vehicle Company</span>
-                  <input name="company" type="text" placeholder="Toyota / Hyundai" />
+                  <input name="company" type="text" placeholder="Toyota / Hyundai" required />
                 </label>
                 <label class="field">
                   <span>Vehicle Model</span>
-                  <input name="model" type="text" placeholder="Swift / Corolla" />
+                  <input name="model" type="text" placeholder="Swift / Corolla" required />
                 </label>
                 <label class="field">
                   <span>Car Type</span>
-                  <select name="carType">
+                  <select name="carType" required>
+                    <option value="">Select car type</option>
                     <option value="Sedan">Sedan</option>
                     <option value="SUV">SUV</option>
                     <option value="Hatchback">Hatchback</option>
@@ -83,10 +86,15 @@
                 </label>
                 <label class="field">
                   <span>Face ID Status</span>
-                  <select name="faceId">
+                  <select name="faceId" required>
+                    <option value="">Select status</option>
                     <option value="Verified">Verified</option>
                     <option value="Pending">Pending</option>
                   </select>
+                </label>
+                <label class="field">
+                  <span>Official Contact</span>
+                  <input name="officialContact" type="text" placeholder="Office / fleet contact" required />
                 </label>
               </div>
             </div>
